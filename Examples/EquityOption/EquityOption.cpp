@@ -51,18 +51,18 @@ int main(int, char* []) {
 
         // set up dates
         Calendar calendar = TARGET();
-        Date todaysDate(15, May, 1998);
-        Date settlementDate(17, May, 1998);
+        Date todaysDate(15, May, 2016);
+        Date settlementDate(8, October, 2015);
         Settings::instance().evaluationDate() = todaysDate;
 
         // our options
         Option::Type type(Option::Put);
-        Real underlying = 36;
-        Real strike = 40;
+        Real underlying = 12.80;
+        Real strike = 14.38;
         Spread dividendYield = 0.00;
-        Rate riskFreeRate = 0.06;
+        Rate riskFreeRate = 0.001;
         Volatility volatility = 0.20;
-        Date maturity(17, May, 1999);
+        Date maturity(15, May, 2016);
         DayCounter dayCounter = Actual365Fixed();
 
         std::cout << "Option type = "  << type << std::endl;
