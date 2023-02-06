@@ -1,8 +1,7 @@
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
- Copyright (C) 2009 StatPro Italia srl
- Copyright (C) 2019 Aprexo Limited
+ Copyright (C) 2015 Thema Consulting SA
 
  This file is part of QuantLib, a free-software/open-source library
  for financial quantitative analysts and developers - http://quantlib.org/
@@ -18,34 +17,26 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-/*! \file version.hpp
-    \brief Version number, and version of boost the library is compiled with
-*/
-
-#ifndef quantlib_version_hpp
-#define quantlib_version_hpp
-
-#include <ql/qldefines.hpp>
-
-/*! \addtogroup macros */
-/*! @{ */
-
-//! version string
-#define QL_VERSION "1.30-dev"
-
-//! version hexadecimal number
-#define QL_HEX_VERSION 0x01300000
-
-/*! @}  */
+#include <ql/instruments/doublebarriertype.hpp>
+#include <ql/types.hpp>
+#include <ql/errors.hpp>
 
 namespace QuantLib {
 
-    /*! Returns the version of boost that the QuantLib library was built with
-        Use to check that client code is using a consistent version of boost.
-        Using QuantLib header files compiled with a different version of boost
-        than the library itself may result in undefined behaviour */
-    std::size_t compiledBoostVersion();
+    std::ostream& operator<<(std::ostream& out,
+                             DoubleBarrier::Type type) {
+        switch (type) {
+          case DoubleBarrier::KnockIn:
+            return out << "KnockIn";
+          case DoubleBarrier::KnockOut:
+            return out << "KnockOut";
+          case DoubleBarrier::KIKO:
+            return out << "KI lo+KO up";
+          case DoubleBarrier::KOKI:
+            return out << "KO lo+KI up";
+          default:
+            QL_FAIL("unknown DoubleBarrier::Type (" << Integer(type) << ")");
+        }
+    }
 
 }
-
-#endif
